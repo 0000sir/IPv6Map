@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IPv6地图</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=9pS9jrsr6yQ7xOlg37jTKpPk"></script>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  domain: MyString
+  ipv6: false
+  httpv6: false
+  http2v6: false
+  ipv4: false
+  httpv4: false
+  http2v4: false
+  score: 
+  latitude: 1.5
+  longitude: 1.5
+  address: MyString
+  province: MyString
+  city: MyString
+  area: MyString
+  telephone: MyString
+
+two:
+  name: MyString
+  domain: MyString
+  ipv6: false
+  httpv6: false
+  http2v6: false
+  ipv4: false
+  httpv4: false
+  http2v4: false
+  score: 
+  latitude: 1.5
+  longitude: 1.5
+  address: MyString
+  province: MyString
+  city: MyString
+  area: MyString
+  telephone: MyString
