@@ -12,6 +12,7 @@ module BaiduMap
             unless info['location'].nil?
                 return info
             else
+                sleep 1
                 BaiduMap.search_map(name, "北京")
             end
         end
