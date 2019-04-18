@@ -56,24 +56,26 @@ class Organization < ApplicationRecord
         end
     end
 
-    def check_ipv4
-        #cmd = "curl -L -4 #{serlf.url}"
-        #rs = system(cmd)
-
-    end
-
     def check_ipv6
-        #cmd = "curl -L -I -6 #{self.url}"
         require 'resolv'
         # 1. dns
         begin
             resource = Resolv::DNS.new.getresource(self.domain,Resolv::DNS::Resource::IN::AAAA)
             self.ipv6 = true unless resource.nil?
+            resource = Resolv::DNS.new.getresource(self.domain,Resolv::DNS::Resource::IN::A)
+            self.ipv4 = true unless resource.nil?
         rescue => e
             p "IPv6 DNS lookup of #{self.domain} failed"
             return
         end
-        # 2. http
-        # 3. https
-    end
+        # 2. http/https/http2
+        res = Ipv6Detect.detect(self.domain)
+        self.httpv6 = res[:httpv6]
+        self.httpsv6 = res[:httpsv6]
+        self.http2v6 = res[:http2v6] || res[:https2v6]
+        self.httpv4 = res[:httpv4]
+        self.httpsv4 = res[:httpsv4]
+        self.http2v4 = res[:http2v4] || res[:https2v4]
+        self.save
+    end    
 end

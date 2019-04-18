@@ -1,5 +1,6 @@
 FROM ruby:2.6.3
-RUN apt-get update -qq && apt-get install -y nodejs
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list #&& sed -i 's|security.debian.org|mirrors.ustc.edu.cn|g' /etc/apt/sources.list
+RUN apt-get update -qq && apt-get install -y nodejs cron
 RUN mkdir /opt/www
 WORKDIR /opt/www
 COPY Gemfile /opt/www/Gemfile
@@ -8,4 +9,6 @@ RUN bundle install
 ADD . /opt/www
 EXPOSE 3000
 WORKDIR /opt/www
+RUN printenv | sed 's/^\(.*\)$/export \1/g' > /etc/profile.d/rails_env.sh
+RUN whenever --update-crontab
 CMD ["/opt/www/start.sh"]
