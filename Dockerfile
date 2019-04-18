@@ -1,4 +1,4 @@
-FROM ruby:2.6.1
+FROM ruby:2.6.3
 RUN apt-get update -qq && apt-get install -y nodejs
 RUN mkdir /opt/www
 WORKDIR /opt/www
