@@ -2,6 +2,9 @@ version: "2"
 services:
   www:
     build: .
+    environment:
+      - BAIDU_MAP_KEY=yqNBwoxylESGMyXzCZBWkVr6TpVdd5lW
+      - BAIDU_MAP_JS_KEY=A5GMnAGtc3KcP4Eq5fhaUfB7H6ocuwaI
     volumes:
       - ./:/opt/www
     ports:

@@ -55,4 +55,25 @@ class Organization < ApplicationRecord
             end
         end
     end
+
+    def check_ipv4
+        #cmd = "curl -L -4 #{serlf.url}"
+        #rs = system(cmd)
+
+    end
+
+    def check_ipv6
+        #cmd = "curl -L -I -6 #{self.url}"
+        require 'resolv'
+        # 1. dns
+        begin
+            resource = Resolv::DNS.new.getresource(self.domain,Resolv::DNS::Resource::IN::AAAA)
+            self.ipv6 = true unless resource.nil?
+        rescue => e
+            p "IPv6 DNS lookup of #{self.domain} failed"
+            return
+        end
+        # 2. http
+        # 3. https
+    end
 end

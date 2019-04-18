@@ -1,6 +1,6 @@
 require 'open-uri'
 module BaiduMap
-    APP_KEY="9pS9jrsr6yQ7xOlg37jTKpPk"#ENV["BAIDU_MAP_KEY"]
+    APP_KEY=ENV["BAIDU_MAP_KEY"]
     def BaiduMap.search_map(name, area="中国")
         organization = URI.encode(name)
         region = URI.encode(area)
