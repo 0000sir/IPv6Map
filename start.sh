@@ -1,4 +1,7 @@
 #! /bin/bash
+if [ -f tmp/pids/server.pid ]; then
+  rm tmp/pids/server.pid
+end
 bundle install
 bundle exec rake db:migrate
 whenever --update-crontab

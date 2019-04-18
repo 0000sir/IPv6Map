@@ -58,7 +58,9 @@ class Organization < ApplicationRecord
 
     def check_ipv6
         require 'resolv'
+        require 'ipv6_detect'
         # 1. dns
+=begin
         begin
             resource = Resolv::DNS.new.getresource(self.domain,Resolv::DNS::Resource::IN::AAAA)
             self.ipv6 = true unless resource.nil?
@@ -68,14 +70,17 @@ class Organization < ApplicationRecord
             p "IPv6 DNS lookup of #{self.domain} failed"
             return
         end
+=end
         # 2. http/https/http2
         res = Ipv6Detect.detect(self.domain)
         self.httpv6 = res[:httpv6]
         self.httpsv6 = res[:httpsv6]
         self.http2v6 = res[:http2v6] || res[:https2v6]
+        self.ipv6 = self.httpv6 || self.httpsv6 || self.http2v6
         self.httpv4 = res[:httpv4]
         self.httpsv4 = res[:httpsv4]
         self.http2v4 = res[:http2v4] || res[:https2v4]
+        self.ipv4 = self.httpv4 || self.httpsv4 || self.http2v4
         self.save
     end    
 end

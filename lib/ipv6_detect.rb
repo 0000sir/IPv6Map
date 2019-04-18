@@ -30,13 +30,13 @@ module Ipv6Detect
     end
 
     def Ipv6Detect.run_curl6(url)
-        cmd = "curl -L -I -6 #{url}"
+        cmd = "curl -L -I -6 --connect-timeout 3 -m 3 #{url}"
         output = `#{cmd}`
         Ipv6Detect.parse_curl_output(output)
     end
 
     def Ipv6Detect.run_curl4(url)
-        cmd = "curl -L -I -4 #{url}"
+        cmd = "curl -L -I -4 --connect-timeout 3 -m 3 #{url}"
         output = `#{cmd}`
         Ipv6Detect.parse_curl_output(output)
     end
