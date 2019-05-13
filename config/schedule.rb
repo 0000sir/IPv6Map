@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 2.hours do
+every 4.hours do
     rake "ipv6:detect"
 end

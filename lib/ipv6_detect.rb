@@ -9,11 +9,15 @@ module Ipv6Detect
             httpv6 = Ipv6Detect.run_curl6(http_url)
             rs[:httpv6] = httpv6[:http]
             rs[:http2v6] = httpv6[:http2]
+        rescue => e
+            p "#{http_url} on ipv6 failed"
+        end
+        begin
             httpsv6 = Ipv6Detect.run_curl6(https_url)
             rs[:httsv6] = httpsv6[:http]
             rs[:https2v6] = httpsv6[:http2]
         rescue => e
-            p "curl on ipv6 failed"
+            p "#{https_url} on ipv6 failed"
         end
         # ipv4
         begin
@@ -24,7 +28,14 @@ module Ipv6Detect
             rs[:httpsv4] = httpsv4[:http]
             rs[:https2v4] = httpsv4[:http2]
         rescue => e
-            p "curl on v4 failed"
+            p "#{http_url} on v4 failed"
+        end
+        begin
+            httpsv4 = Ipv6Detect.run_curl4(https_url)
+            rs[:httpsv4] = httpsv4[:http]
+            rs[:https2v4] = httpsv4[:http2]
+        rescue => e
+            p "#{https_url} on v4 failed"
         end
         return rs
     end

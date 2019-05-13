@@ -1,4 +1,5 @@
 class Organization < ApplicationRecord
+    require 'baidu_map'
     after_create :set_map_info
     def self.load_from_ustc
         require 'ustc'

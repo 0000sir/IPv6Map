@@ -1,5 +1,6 @@
 <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=<%= ENV['BAIDU_MAP_JS_KEY']%>"></script>
-
+<script type="text/javascript" src="//api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="/MarkerClusterer.js"></script>
 <div id="container"></div>
 
 <script type="text/javascript"> 
@@ -24,14 +25,14 @@ map.enableScrollWheelZoom(true);
 // 添加点
 points = <%= @organizations.map{|x| [x.longitude, x.latitude]}.to_s %>;
 labels = [<%= raw @organizations.map{|x| "'#{x.name}'"}.join(",") %>];
-//var markers = [];
+var markers = [];
 for(let i in points){
     p = points[i];
     console.log(labels[i]);
     pin = new BMap.Point(p[0], p[1]);
     marker = new BMap.Marker(pin);
     marker.setLabel(new BMap.Label(labels[i],{offset:new BMap.Size(20,-10)}));
-    //markers.push(marker);
-    map.addOverlay(marker);
+    markers.push(marker);
 }
+var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
 </script> 
