@@ -10,6 +10,16 @@
   </head>
 
   <body>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">高校IPv6地图</a>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" id="hostname" name="hostname" placeholder="输入域名" aria-label="http://">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="button"  data-toggle="modal" data-target="#exampleModalCenter">检测</button>
+    </form>
+  </nav>
+
     <%= yield %>
+
+    <%= render 'layouts/check' %>
   </body>
 </html>

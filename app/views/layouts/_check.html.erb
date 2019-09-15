@@ -1,0 +1,78 @@
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">检测结果</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+           <li>IPv4 解析地址: <span id="ipv4_dns"></span></li> 
+           <li>IPv4 HTTP: <span id="ipv4_http"></span></li>
+           <li>IPv4 HTTPS: <span id="ipv4_https"></span></li>
+           <li>IPv4 HTTP/2: <span id="ipv4_http2"></span></li>
+           <br>
+           <li>IPv6 解析地址: <span id="ipv6_dns"></span></li> 
+           <li>IPv6 HTTP: <span id="ipv6_http"></span></li>
+           <li>IPv6 HTTPS: <span id="ipv6_https"></span></li>
+           <li>IPv6 HTTP/2: <span id="ipv6_http2"></span></li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).on('turbolinks:load',function(){
+    $("#exampleModalCenter").on('shown.bs.modal', function(e){
+        h = $("#hostname").val();
+        if(h==""){
+            $("#exampleModalCenter").modal('hide');
+            alert("请输入有效的主机名");
+            return;
+        }
+
+        clean_results();
+        $.get('/check?h='+h, function(data){
+            $("#ipv4_dns").text(data.a);
+            $("#ipv6_dns").text(data.aaaa);
+            set_result("ipv4_http", data.httpv4);
+            set_result("ipv4_https", data.httpsv4);
+            set_result("ipv4_http2", data.http2v4);
+
+            set_result("ipv6_http", data.httpv6);
+            set_result("ipv6_https", data.httpsv6);
+            set_result("ipv6_http2", data.http2v6);
+        });
+    });
+});
+
+function set_result(id, status){
+    $("#"+id).addClass( status ? "text-success" : "text-danger");
+    $("#"+id).removeClass( !status ? "text-success text-warning" : "text-danger text-warning")
+    $("#"+id).text(status ? "检测成功" : "检测失败");
+}
+
+function clean_result(id){
+    $("#"+id).addClass("text-warning");
+    $("#"+id).removeClass("text-success text-danger");
+    $("#"+id).text("正在检测");
+}
+
+function clean_results(){
+    clean_result("ipv4_dns");
+    clean_result("ipv4_http");
+    clean_result("ipv4_https");
+    clean_result("ipv4_http2");
+    clean_result("ipv6_dns");
+    clean_result("ipv6_http");
+    clean_result("ipv6_https");
+    clean_result("ipv6_http2");
+}
+</script>

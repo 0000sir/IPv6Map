@@ -1,5 +1,6 @@
 <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=<%= ENV['BAIDU_MAP_JS_KEY']%>"></script>
 
+
 <div id="container"></div>
 
 <script type="text/javascript"> 
@@ -14,7 +15,7 @@ map.addControl(new BMap.ScaleControl());
 map.addControl(new BMap.OverviewMapControl());    
 map.addControl(new BMap.MapTypeControl());
 // 创建地图实例  
-var point = new BMap.Point(116.404, 39.915);
+var point = new BMap.Point(108.404, 34.915);
 
 // 创建点坐标  
 map.centerAndZoom(point, 6);
@@ -27,7 +28,7 @@ labels = [<%= raw @organizations.map{|x| "'#{x.name}'"}.join(",") %>];
 //var markers = [];
 for(let i in points){
     p = points[i];
-    console.log(labels[i]);
+    //console.log(labels[i]);
     pin = new BMap.Point(p[0], p[1]);
     marker = new BMap.Marker(pin);
     marker.setLabel(new BMap.Label(labels[i],{offset:new BMap.Size(20,-10)}));
