@@ -25,7 +25,7 @@ module Ipv6Detect
             end
             begin
                 httpsv6 = Ipv6Detect.run_curl6(https_url)
-                rs[:httsv6] = httpsv6[:http]
+                rs[:httpsv6] = httpsv6[:http]
                 rs[:https2v6] = httpsv6[:http2]
             rescue => e
                 p "#{https_url} on ipv6 failed"
